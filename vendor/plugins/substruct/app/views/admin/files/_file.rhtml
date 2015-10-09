@@ -1,0 +1,57 @@
+<div class="user_upload" id="file_<%= file.id %>">
+  <div class="delete_icon">
+    <!-- delete -->
+    <%= 
+      link_to_remote(
+        image_tag(
+          "icons/png-24/16-em-cross.png", 
+          :id => "trash_#{file.id}", 
+          :plugin => 'substruct', 
+          :alt => 'Delete'
+        ),
+        :url => {
+            :controller => "files",
+            :action => "destroy", 
+            :id => file.id
+        },
+        :loading => "S_FILES.status(#{file.id});",
+        :complete => "S_FILES.destroy(#{file.id});"
+      )
+    %>
+    <!-- delete indicator -->
+    <%= 
+      image_tag(
+        'indicator.gif', 
+        :id => "spin_#{file.id}", 
+        :style => "display:none;", 
+        :plugin => 'substruct'
+      )
+    %>
+  </div>
+  
+  <div class="image">
+    <% 
+      if file.class == Image
+        image_thumb_path = file.public_filename(:thumb)
+    %>
+      <!-- this is an image -->
+      <a href="<%= file.public_filename %>" rel="lightbox[images]"><%= image_tag image_thumb_path %></a>
+    <% else %>
+      <span style="background-color:#eee; padding:5px; font-size: 1.2em;">
+        <%= file.extension.upcase %>
+      </span>
+    <% end %>
+  </div>
+  <%
+    # link to image with submodal...
+    if file.class == Image 
+  %>
+    <div class="name">
+      <%= file.name %>
+    </div>
+  <% else %>
+    <div class="name">
+      <a href="<%= file.public_filename %>"><%= file.name %></a>
+    </div>
+  <% end %>
+</div>

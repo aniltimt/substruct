@@ -1,0 +1,5 @@
+--- 
+administrator_role:
+  name: 'Administrator'
+  description: 'Access everything in Substruct.'
+  rights: "orders_all, users_all, rights_all, products_all, content_all, questions_all, roles_all, tags_all, promotions_all, preferences_all, sections_all, files_all, affiliates_all, customers_all"

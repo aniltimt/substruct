@@ -1,0 +1,25 @@
+joes_marketing: 
+  code: "joes_marketing"
+  first_name: "Joe"
+  last_name: "Blow"
+  telephone: "555-555-1212"
+  address: 155 Somewhere lane
+  city: Los Angeles
+  state: CA
+  zip: 95111
+  email_address: joe@joesmarketing.com
+  is_enabled: true
+  created_at: <%= Date.today - 1.week %>
+
+bob_reseller: 
+  code: "bobby_r"
+  first_name: "Bob"
+  last_name: "Reseller"
+  telephone: "999-111-1212"
+  address: 2010 Shady Tree Lane
+  city: San Francisco
+  state: CA
+  zip: 91111
+  email_address: bob@bobsreseller.com
+  is_enabled: false
+  created_at: <%= Date.today %>

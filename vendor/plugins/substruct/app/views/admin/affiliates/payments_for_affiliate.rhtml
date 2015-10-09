@@ -1,0 +1,20 @@
+<div id="left">
+  <%= render :partial => 'subnav' %>
+	
+  <% if @payments.size == 0 %>
+    <p>
+      No payments have been made to <%=h @affiliate.name %>
+    </p>
+  <% else %>
+    <%= render :partial => 'payments_table' %>
+  <% end %>
+</div>
+
+<div id="right">
+  <h3>
+    Currently owed
+    <br/>
+    <%= number_to_currency(@affiliate.total_owed) %> 
+  </h3>
+</div>
+<div class="clear"></div>

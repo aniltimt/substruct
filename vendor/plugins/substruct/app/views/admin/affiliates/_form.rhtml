@@ -1,0 +1,90 @@
+<div class="padLeft">
+  <h2>Approval Status</h2>
+  <div style="margin-bottom:10px;">
+    <p>
+      <label class="inline" style="margin-right:10px;">
+        <%= radio_button :affiliate, :is_enabled, true %> Enabled
+      </label>
+      <label class="inline">
+        <%= radio_button :affiliate, :is_enabled, false %> Disabled
+      </label>
+    </p>
+    <p class="info">
+      Disabled affiliates can not login
+      and will not be eligible to receive earnings or payments.
+    </p>
+  </div>
+  
+  <div class="clear line"></div>
+
+  <h2>Information</h2>
+
+	<div class="floatHalf">
+  	<%= make_label('Affiliate Code', true) %>
+  	<%= text_field "affiliate", 'code', :maxlength => 20, :size => 30, :class => 'textInput' %>
+  	<%= error_message_on("affiliate", :code) %>
+  </div>
+  <div class="floatHalf">
+		<%= make_label('Email Address', true) %>
+		<%= text_field "affiliate", 'email_address', :size => 30, :class => 'textInput' %>
+  	<%= error_message_on("affiliate", :email_address) %>
+  </div>
+  <div class="clear">&nbsp;</div>
+
+	<div class="floatHalf">
+		<%= make_label('Tax ID') %>
+		<%= text_field "affiliate", 'tax_id', :maxlength => 50, :size => 30, :class => 'textInput' %>
+		<%= error_message_on("affiliate", :tax_id) %>
+	</div>
+	<div class="floatHalf">
+	  <%= make_label('Company Name') %>
+	  <%= text_field "affiliate", 'company', :maxlength => 50, :size => 30, :class => 'textInput' %>
+	  <%= error_message_on("affiliate", :company) %>
+	</div>
+	<div class="clear">&nbsp;</div>
+
+
+	<div class="floatHalf">
+		<label>First Name</label>
+		<%= text_field "affiliate", 'first_name', :maxlength => 50, :size => 30, :class => 'textInput' %>
+		<%= error_message_on("affiliate", :first_name) %>
+	</div>
+	<div class="floatHalf">
+	  <label>Last Name</label>
+	  <%= text_field "affiliate", 'last_name', :maxlength => 50, :size => 30, :class => 'textInput' %>
+	  <%= error_message_on("affiliate", :last_name) %>
+	</div>
+	<div class="clear">&nbsp;</div>
+
+	<div class="floatHalf">
+		<label>Address</label>
+		<%= text_field "affiliate", 'address', :maxlength => 255, :size => 30, :class => 'textInput' %>
+		<%= error_message_on("affiliate", :address) %>
+	</div>
+	<div class="floatHalf">
+  	<label>City</label>
+		<%= text_field "affiliate", 'city', :maxlength => 50, :size => 30, :class => 'textInput' %>
+		<%= error_message_on("affiliate", :city) %>
+  </div>
+	<div class="clear">&nbsp;</div>
+
+	<div class="floatHalf">
+		<div class="float">
+  		<label>State/Prov</label>
+  		<%= text_field "affiliate", 'state', :maxlength => 10, :size => 10, :class => 'textInput' %>
+  		<%= error_message_on("affiliate", :state) %>
+  	</div>
+		<div class="float">
+		  <label>Zip Code</label>
+		  <%= text_field "affiliate", 'zip', :maxlength => 10, :size => 10, :class => 'textInput' %>
+		  <%= error_message_on("affiliate", :zip) %>
+		</div>
+	</div>
+	<div class="clear">&nbsp;</div>
+
+	<label>Phone</label>
+	<%= text_field "affiliate", 'telephone', :maxlength => 20, :class => 'textInput' %>
+	<%= error_message_on("affiliate", :telephone) %>
+
+</div>
+<div class="clear">&nbsp;</div>

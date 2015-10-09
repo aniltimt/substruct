@@ -1,0 +1,110 @@
+<%= stylesheet_link_tag 'admin_files', :plugin => 'substruct' %>
+<%= javascript_include_tag 'admin_files', :plugin => 'substruct' %>
+
+<div id="left"><!-- upload files -->
+	<div id="upload_container" style="display:none;">
+		<h1>Upload New Files</h1>
+		<%= form_tag({:action => 'upload'}, :multipart => true) %>
+			<%= 
+				render :partial => '/shared/multiple_upload',
+					:locals => {
+						:name => 'file',
+						:input_size => '30'
+					}
+			%>
+			<%= submit_tag 'Upload Files', :disable_with => 'Uploading...', :class => 'button' %>
+		</form>
+	</div>
+
+	<%= render :partial => '/admin/content_nodes/subnav' %>
+	
+	<ul class="navigation secondary">
+		<li>
+			<% if !params[:sort].nil? && params[:sort] == 'name' %>
+				<%=
+					link_to(
+						'Sort Newest to Oldest',
+						:action => 'index',
+						:key => params[:key],
+						:sort => 'date'
+					)
+				%>
+			<% else %>
+				Sorted Newest to Oldest
+			<% end %>
+		</li>
+		<li>
+			<% if params[:sort] != 'name' %>
+				<%=
+					link_to(
+						'Sort A-Z',
+						:action => 'index',
+						:key => params[:key],
+						:sort => 'name'
+					)
+				%>
+			<% else %>
+				Sorted A-Z
+			<% end %>
+		</li>
+	</ul>
+
+	<%= will_paginate @files %>
+	<br/>
+	
+	<% if @files.size == 0 %>
+		<div class="content_pad">
+			<p>
+				No files to show.
+			</p>
+		</div>
+	<% end %>
+
+  <div class="padLeft">
+	  <%= render :partial => 'file', :collection => @files %>
+	</div>
+	<div class="clear">&nbsp;</div>
+	
+	<br/>
+	<%= will_paginate @files %>
+</div>
+
+<!-- right side -->
+<div id="right">
+	<br/>
+	<a href="#" onclick="S_FILES.showUploadArea();" class="button" id="show_upload_button">Upload New Files</a>
+	<a href="#" onclick="S_FILES.hideUploadArea();" class="button cancel" style="display:none;" id="hide_upload_button">Cancel Uploading Files</a>
+	<div class="clear">&nbsp;</div>
+	
+	<h1>View Files by Type</h1>
+	<ul>
+		<li>
+			<%= 
+				link_to_unless_current(
+					'All Files',
+					:action => 'index'
+				)
+			%>
+		</li>
+		<li>
+			<%= 
+				link_to_unless_current(
+					'Images',
+					:action => 'index',
+					:key => 'Image'
+				)
+			%>
+		</li>
+		<li>
+			<%= 
+				link_to_unless_current(
+					'Others',
+					:action => 'index',
+					:key => 'Asset'
+				)
+			%>
+		</li>
+	</ul>
+</div>
+
+<div class="clear">&nbsp;</div>

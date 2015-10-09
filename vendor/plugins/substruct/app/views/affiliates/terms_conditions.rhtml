@@ -1,0 +1,15 @@
+<div id="left">
+  <h2><%= @title %></h2>
+	<%= 
+	  render_component(
+	    :controller => "content_nodes",
+	    :action => "show_snippet",
+      :params => {
+        :name => 'AffiliateTermsAndConditions'
+      }
+    ) 
+  %>
+</div>
+
+<%= render :partial => 'sidebar' %>
+<div class="clear"></div>

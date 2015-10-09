@@ -1,0 +1,20 @@
+<div id="right">
+  <h2>Affiliate Menu</h2>
+  <ul>
+  	<li>
+  		<%= link_to_unless_current('Earnings', :action => 'index') %>
+  	</li>
+  	<li>
+  		<%= link_to_unless_current('Payments', :action => 'payments') %>
+  	</li>
+  	<li>
+  		<%= link_to_unless_current('Account Details', :action => 'account') %>
+  	</li>
+  	<li>
+      <%= link_to_unless_current('Promotion Tools', :action => 'promotion_tools') %>
+    </li>
+  	<li>
+      <%= link_to_unless_current('Terms and Conditions', :action => 'terms_conditions') %>
+    </li>
+  </ul>		
+</div>

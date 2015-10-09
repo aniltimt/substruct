@@ -1,0 +1,61 @@
+<div id="left">
+  <%= render :partial => 'subnav' %>
+  <h2 style="margin-bottom:10px;">
+    <%= @payment.number %>
+  </h2>
+  
+  <table class="list sideheaders" cellpadding="0" cellspacing="0">
+    <colgroup>
+      <col style="width:120px;" />
+      <col style="width:200px;" />
+      <col style="width:120px;" />
+      <col />
+    </colgroup>
+    <tr>
+      <th>Amount</th>
+      <td><%= number_to_currency(@payment.amount) %></td>
+      <th>Date</th>
+      <td><%= @payment.created_at.strftime("%m/%d/%y @ %I:%M %p") %></td>
+    </tr>
+  </table>
+  
+  <h3>Orders</h3>
+  <% if @orders.size == 0 %>
+    <p>
+      No orders are associated with this payment.
+    </p>
+  <% else %>
+    <%= render :partial => 'orders_table' %>
+  <% end %>
+  
+  <br/>
+  <p>
+    <%= make_label('Notes') %>
+    <span class="info">These are <b>visible to affiliates</b>.</span>
+    <%= 
+      text_area(
+        'payment', 'notes', 
+        :cols => 100, :rows => 5, 
+        :style => 'width:660px;',
+        :class => 'textArea'
+      )
+    %>
+  </p>
+
+  
+  <div class="clear"></div>
+
+  <div class="line"></div>
+
+  <div style="float:right;">
+      <%= link_to 'Delete This Payment', {:action => 'destroy_payment', :id => @payment}, :class => 'action', :confirm => 'Are you sure?', :method => :post %>
+  </div>
+	<%= submit_tag "Save Notes", :class => 'button hundred', :id => 'add_note_button' %>
+
+	<div class="clear">&nbsp;</div>
+
+</div>
+
+<div id="right">
+</div>
+<div class="clear"></div>

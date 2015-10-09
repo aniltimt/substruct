@@ -1,0 +1,42 @@
+<div>
+  <% if @content_node.is_blog_post? %>
+    <h2>Place Content in Section</h2>
+
+    <!-- 
+    	Empty tag to force updates even if no checkboxes are selected
+     -->
+    <input type="hidden" value="" name="content_node[sections][]" />
+    <div class="listContainer" style="height:250px;">
+    	<table class="list" cellpadding="0" cellspacing="0">
+    		<colgroup>
+    			<col style="width:25px;" />
+    			<col style="width:25px;" />
+    			<col />
+    		</colgroup>
+    		<tr class="fixedHeader">
+    			<th colspan="3">Section Name</th>
+    		</tr>
+    		<tbody id="tag_list_tbody">
+    		<% if @sections.length > 0 %>
+    			<%= render(:partial => 'section_list_form_row', :collection => @sections, :locals => {:content_node => @content_node}) %>
+    		<% else %>
+    			<tr>
+    				<td colspan="3">No sections have been created yet.</td>
+    			</tr>
+    		<% end %>
+    			<!-- blank row so the stupid columns line up right -->
+    			<tr><td></td><td></td><td></td></tr>
+    		</tbody>
+    	</table>
+    </div>
+
+    <p>
+    	<a href="/admin/sections/list" class="action">Manage Sections</a>
+    </p>
+
+    <p class="info">
+    	Sections will be assigned when you save this content.
+    </p>
+  <% end %>
+
+</div>

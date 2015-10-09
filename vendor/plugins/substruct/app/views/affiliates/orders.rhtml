@@ -1,0 +1,41 @@
+<div id="left">
+  <h2><%= link_to('Earnings', :action => 'earnings') %> &gt; <%= @date.strftime('%B %Y') %></h2>
+  <table class="list" cellpadding="0" cellspacing="0">
+    <colgroup>
+      <col style="width:80px;" />
+      <col style="width:10px;" />
+      <col />
+      <col style="width:100px;" />
+      <col style="width:100px;" />
+    </colgroup>
+    <tr>
+      <th class="numeric">Date</th>
+      <th class="numeric">Items</th>
+      <th>Status</th>
+      <th class="numeric">Total</th>
+      <th class="numeric">Earnings</th>
+    </tr>
+    <% @orders.each do |o| %>
+      <tr class="<%= alternate %> <%= o.is_payable_to_affiliate? ? '' : 'inactive' %>">
+        <td class="numeric">
+          <%= o.created_on.strftime("%m/%d/%Y") %>
+        </td>
+        <td class="numeric">
+          <%= o.order_line_items.size %>
+        </td>
+        <td>
+          <%=h o.order_status_code.name %>
+        </td>
+        <td class="numeric">
+          <%= number_to_currency(o.total) %>
+        </td>
+        <td class="numeric">
+          <%= number_to_currency(o.affiliate_earnings) %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+
+<%= render :partial => 'sidebar' %>
+<div class="clear"></div>

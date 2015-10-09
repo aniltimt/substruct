@@ -1,0 +1,17 @@
+xml.instruct! :xml, :version => "1.0"
+xml.rss :version => "2.0" do
+  xml.channel do
+    xml.title @title
+    #xml.description
+    #xml.link posts_url
+
+    @content_nodes.each do |entry|
+      xml.item do
+        xml.title entry.title
+        xml.description get_markdown_snippet(entry.content)
+        xml.pubDate entry.display_on.to_s(:rfc822)
+        xml.link url_for(:controller => 'blog', :name => entry.name, :only_path => false)
+      end
+    end
+  end
+end

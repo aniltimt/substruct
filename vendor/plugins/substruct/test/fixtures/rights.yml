@@ -1,0 +1,70 @@
+--- 
+orders_all: 
+  name: Orders - Admin
+  controller: orders
+  actions: "*"
+
+users_all: 
+  name: Users - Admin
+  controller: users
+  actions: "*"
+
+rights_all: 
+  name: Rights - Admin
+  controller: rights
+  actions: "*"
+
+products_all: 
+  name: Products - Admin
+  controller: products
+  actions: "*"
+
+content_all: 
+  name: Content - Admin
+  controller: content_nodes
+  actions: "*"
+
+questions_all: 
+  name: Questions - Admin
+  controller: questions
+  actions: "*"
+
+roles_all: 
+  name: Roles - Admin
+  controller: roles
+  actions: "*"
+
+tags_all: 
+  name: Tags - Admin
+  controller: tags
+  actions: "*"
+
+promotions_all: 
+  name: Promotions - Admin
+  controller: promotions
+  actions: "*"
+
+preferences_all: 
+  name: Preferences - Admin
+  controller: preferences
+  actions: "*"
+
+sections_all: 
+  name: Sections - Admin
+  controller: sections
+  actions: "*"
+
+files_all: 
+  name: Files - Admin
+  controller: files
+  actions: "*"
+
+affiliates_all:
+  name: Affiliates - Admin
+  controller: affiliates
+  actions: "*"
+
+customers_all:
+  name: Customers - Admin
+  controller: customers
+  actions: "*"

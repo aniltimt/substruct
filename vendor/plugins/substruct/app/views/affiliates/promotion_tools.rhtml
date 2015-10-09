@@ -1,0 +1,15 @@
+<div id="left">
+  <h2><%= @title %></h2>
+  <p>
+    Promote our site by using this link.
+  </p>
+  <p>
+    <textarea class="textInput" rows="2" cols="50" style="width:100%;"><%= get_affiliate_link(@affiliate) %></textarea>
+  </p>
+  <p>
+    Each time someone orders something from our site you will be credited.
+  </p>
+</div>
+
+<%= render :partial => 'sidebar' %>
+<div class="clear"></div>

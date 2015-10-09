@@ -1,0 +1,45 @@
+<%= form_tag({:action => 'update', :id => @content_node}, :multipart => true) %>
+	<div id="left">
+	  <h1><%= @title %></h1>
+	  <ul class="navigation secondary">
+	    <li>
+	      <%= 
+	        link_to(
+	          "&laquo; Back to #{@content_node.type.to_s.pluralize}",
+	          :controller => 'content_nodes',
+	          :action => 'list',
+	          :key => @content_node.type
+	        )
+	      %>
+	    </li>
+	  </ul>
+
+    <%= render :partial => 'form' %>
+    
+	  <div style="float:right;">
+		  <%= 
+		    link_to(
+		      "Delete", 
+		      {
+		        :action => 'destroy', 
+		        :id => @content_node
+		      },
+		      {
+		        :confirm => 'Are you sure?',
+		        :method => :post,
+		        :class => 'action'
+		      }
+		    )
+		  %>
+		</div>
+	  <%= submit_tag "Save #{@content_node.type}", :class => 'button' %>
+	</div>
+
+
+	<!-- RIGHT -->
+	<div id="right">	  
+		<%= render :partial => 'crud_sidebar' %>
+	</div>
+	<div class="clear">&nbsp;</div>
+
+</form>

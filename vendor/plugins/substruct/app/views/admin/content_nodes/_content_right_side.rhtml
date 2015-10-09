@@ -1,0 +1,23 @@
+<!-- RIGHT -->
+<div id="right">
+  <br/>
+  <%= 
+    link_to(
+      "Create New #{@viewing_by}", 
+      {
+        :action => 'new',
+        :type => @viewing_by
+      }, 
+      :class => 'button hundredfifty'
+    )
+  %>
+
+  <h1>Sections</h1>
+	<p>
+		<a href="/admin/sections/list" class="action">Manage Sections</a>
+	</p>
+	<p>
+		<a href="/admin/content_nodes/list_sections">View Content By Section</a>
+	</p>
+</div>
+<div class="clear">&nbsp;</div>

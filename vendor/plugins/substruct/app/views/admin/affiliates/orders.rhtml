@@ -1,0 +1,44 @@
+<div id="left">
+  <%= render :partial => 'subnav' %>
+
+  <h3 style="margin-bottom:10px;">
+    Referred Orders for <%= @date.strftime('%B %Y') %>
+  </h3>
+
+	<% if @orders.length == 0 then %>
+		<h4>No orders for this affiliate yet.</h4>
+	<% else %>
+
+  <%= render :partial => 'orders_table' %>
+
+	<!-- DOWNLOAD ORDERS -->
+	<p style="margin-top:10px;">
+		<%= link_to "Download Orders: XML", 
+					{ :controller => 'orders',
+						:action => 'download',
+	          :ids => @orders.collect{|o| o.id},
+	 					:format => 'xml' }, 
+					:class => 'action' 
+		%>
+		<%= link_to "Download Orders: CSV", 
+					{ :controller => 'orders',
+						:action => 'download',
+	          :ids => @orders.collect{|o| o.id},
+	 					:format => 'csv' }, 
+					:class => 'action' 
+		%>
+	</p>
+
+		<!-- PAGINATION -->
+		<% if @order_pages then %>
+			<br/>
+			<%= render(:partial => '/shared/pagination',
+								 :object => @order_pages,
+								 :locals => {:params => {:key =>@viewing_by, :term => @search_term} }) %>
+		<% end %>
+	<% end %>
+</div>
+
+
+<%= render(:partial => 'right_side') %>
+

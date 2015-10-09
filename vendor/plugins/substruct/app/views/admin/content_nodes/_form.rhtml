@@ -1,0 +1,87 @@
+<script type="text/javascript">
+  var CONTENT_NODE = {
+    edit_permalink: function() {
+      $('edit_permalink').hide(); 
+      $('permalink_view').hide();
+      $('permalink_edit').show();
+    }
+  };
+</script>
+<style type="text/css">
+  #permalink_container {
+    float: left;
+    width: 400px;
+  }
+  #publish_container {
+    float: right;
+    width:220px;
+  }
+  #permalink_container, #publish_container {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  #permalink_edit div.fieldWithErrors, #permalink_edit div.formError {
+    margin: 0px;
+    padding: 0px;
+    float:left;
+  }
+</style>
+
+<% if @content_node.new_record? %>
+  <input type="hidden" id="content_node_type" name="content_node[type]" value="<%= @content_node.type %>" />
+<% end %>
+
+<!--[form:content_node]-->
+<div>
+	<%= text_field 'content_node', 'title', :class => 'textInput big', :style => "width:670px;", :tabindex => 1  %>
+</div>
+<div id="permalink_container">
+	<div>
+	  <label for="content_node_name">
+	    Permalink
+	    <a href="#" 
+	      onclick="CONTENT_NODE.edit_permalink();return false;"
+	      class="info" 
+	      style="margin-left:5px;display:<%= @content_node.errors.on(:name) ? 'none' : '' %>;"
+	      id="edit_permalink"
+	    >Edit</a>
+	  </label>
+	  <span id="permalink_view"
+	    class="info"
+	    style="display:<%= @content_node.errors.on(:name) ? 'none' : '' %>;">
+  	  <%
+  	    if @content_node.new_record?
+  	  %>
+  	    A unique link will be generated for you based on title.
+  	    
+  	  <%  
+  	    else
+  	    content_link = url_for(
+  	      :controller => '/content_nodes',
+  	      :action => 'show_by_name',
+  	      :name => @content_node.name,
+  	      :only_path => false
+  	    )
+  	  %>
+  	    <a href="<%= content_link %>" target="_new"><%= content_link %></a>
+  	  <% end %>
+	  </span>
+	  <span id="permalink_edit"
+	    style="display:<%= @content_node.errors.on(:name) ? '' : 'none' %>;">
+  	  <%= text_field 'content_node', 'name', :class => 'textInput'  %>
+  	  <%= error_message_on(:content_node, :name) %>
+    </span>
+	</div>
+</div>
+<div id="publish_container">
+  <div>
+	  <label for="content_node_display_one">Publish on</label>
+	  <%= date_select 'content_node', 'display_on', {:order => [:month, :day, :year]}  %>
+	</div>
+</div>
+<div class="clear"></div>
+
+<!-- content edit -->
+<div id="content_edit" style="margin-bottom:20px;">
+  <%= text_area 'content_node', 'content', :cols => 85, :rows => 25, :class => 'textAreaCode', :style => "width:680px;", :tabindex => 2  %>
+</div>

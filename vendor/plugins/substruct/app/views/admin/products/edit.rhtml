@@ -1,0 +1,32 @@
+<%= form_tag({:action => 'save', :id => @product}, :multipart => true) %>
+<div id="left">
+  <h1><%= @title %></h1>
+  <p>
+    <%=
+      link_to(
+        'View on the site',
+        {
+          :controller => '/store',
+          :action => 'show',
+          :id => @product.code
+        },
+        :target => 'ss_store'
+      )
+    %>
+  </p>
+  <ul class="navigation secondary">
+    <li><a href="/admin/products/list/">&laquo; Back to Product List</a></li>
+  </ul>
+
+    <%= render :partial => 'form' %>
+		<div style="float:right;">
+			<%= link_to 'Delete This Product', {:action => 'destroy', :id => @product}, :confirm => 'Are you sure?', :class => 'action' %>
+		</div>
+    <%= submit_tag 'Save This Product', :disable_with => 'Saving...', :class => 'button hundredthirty' %>
+
+</div>
+
+<%= render(:partial => 'crud_right') %>
+
+<!-- end form tag here to grab tags on products -->
+</form>

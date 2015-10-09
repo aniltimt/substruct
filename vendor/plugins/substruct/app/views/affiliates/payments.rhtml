@@ -1,0 +1,35 @@
+<div id="left">
+  <h2><%= @title %></h2>
+  <% if @payments.size == 0 %>
+    <p>
+      No payments have been made to you yet.
+    </p>
+  <% else %>
+    <table class="list" cellpadding="0" cellspacing="0">
+      <colgroup>
+        <col style="width:150px;" />
+        <col style="width:175px;" />
+        <col style="width:100px;" />
+        <col />
+      </colgroup>
+      <tr>
+        <th>Number</th>
+        <th>Date</th>
+        <th class="numeric">Amount</th>
+        <th>Notes</th>
+      </tr>
+      <% @payments.each do |p| %>
+        <tr class="<%= alternate %>">
+          <td><%= p.number %></td>
+          <td><%= p.created_at.strftime("%m/%d/%y @ %I:%M %p") %></td>
+          <td class="numeric"><%= number_to_currency(p.amount) %></td>
+          <td><%=h p.notes %></td>
+        </tr>
+      <% end %>
+    </table>
+    
+  <% end %>
+</div>
+
+<%= render :partial => 'sidebar' %>
+<div class="clear"></div>

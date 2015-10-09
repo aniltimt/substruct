@@ -1,0 +1,45 @@
+<% show_name ||= false %>
+<table class="list" cellpadding="0" cellspacing="0">
+  <colgroup>
+    <col style="width:150px;" />
+    <col style="width:175px;" />
+    <col style="width:100px;" />
+    <col />
+  </colgroup>
+  <tr>
+    <th>Number</th>
+    <th>Date</th>
+    <% if show_name == true %>
+      <th>Affiliate</th>
+    <% end %>
+    <th class="numeric">Amount</th>
+    <th>Notes</th>
+  </tr>
+  <% @payments.each do |p| %>
+    <tr class="<%= alternate %>">
+      <td>
+        <%= 
+          link_to(
+            p.number,
+            :action => 'show_payment',
+            :id => p.id
+          )
+        %>
+      </td>
+      <td><%= p.created_at.strftime("%m/%d/%y @ %I:%M %p") %></td>
+      <% if show_name == true %>
+        <td>
+          <%= 
+            link_to(
+              p.affiliate.name,
+              :action => 'edit',
+              :id => p.affiliate.id
+            )
+          %>
+        </td>
+      <% end %>
+      <td class="numeric"><%= number_to_currency(p.amount) %></td>
+      <td><%=h p.notes %></td>
+    </tr>
+  <% end %>
+</table>

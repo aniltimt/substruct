@@ -1,0 +1,92 @@
+<%= stylesheet_link_tag 'admin_files', :plugin => 'substruct' %>
+<%= javascript_include_tag 'admin_files', :plugin => 'substruct' %>
+<div id="subnav" style="margin-bottom:20px;">
+	<ul class="navigation tertiary" id="sub_tabs">
+		<li class="active"><a href="#" onclick="showSubTab('image_library', this);return false;">Select an image to insert</a></li>
+		<li><a href="#" onclick="showSubTab('image_upload', this);return false;">Upload Images</a></li>
+	</ul>
+	<div class="clear">&nbsp;</div>
+</div>
+
+<!-- IMAGE LIBRARY -->
+
+<div id="image_library">
+  <div id="images" style="display:;">
+    <% if @files.size == 0 %>
+    	<div class="content_pad">
+    		<p>
+    			No files to show.
+    		</p>
+    	</div>
+    <% end %>
+
+    <div id="file_select_container">
+      <%= render :partial => 'image_select', :collection => @files %>
+      <div class="clear">&nbsp;</div>
+    </div>
+  
+    <br/>
+    <%= will_paginate @files %>
+  </div>
+
+  <div id="insert_details" style="display:none;">
+    <div id="insert_details_inner" class="content_pad">
+      <form id="insert_form" onsubmit="return false;">
+        <h3 id="insert_details_title">[filename]</h3>
+        <div style="float:left;margin-right:20px;">
+          <h4>Width</h4>
+          <p>
+            <input type="text" class="textInput" id="image_width" size="30" value="" />
+          </p>
+          <h4>Height</h4>
+          <p>
+            <input type="text" class="textInput" id="image_height" size="30" value="" />
+          </p>
+          <h4>Alt Tag</h4>
+          <p>
+            <input type="text" class="textInput" id="image_alt" size="30" value="" />
+          </p>
+          <div style="margin-top:20px;">
+            <button 
+              class="button" 
+              onclick="S_FILE_SELECT.insertImage();" 
+              style="width:120px;float:left;margin-right:10px;">
+              Insert Image
+            </button>
+            <button 
+              class="buttonWarning" 
+              onclick="S_FILE_SELECT.cancel();" 
+              style="float:left;">
+              Cancel
+            </button>
+            <div class="clear"></div>
+          </div>
+
+        </div>
+        <div id="insert_details_image_container">
+          <span>
+            <img src="" id="insert_details_image" />
+          </span>
+        </div>
+        <div class="clear"></div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- IMAGE UPLOAD -->
+<div id="image_upload" style="display:none;">
+	<%= form_tag({:action => 'upload'}, :multipart => true) %>
+	  <!-- redirects to proper action after upload -->
+	  <input type="hidden" name="modal" value="true" />
+		<%= 
+			render :partial => '/shared/multiple_upload',
+				:locals => {
+					:name => 'file',
+					:input_size => '30'
+				}
+		%>
+		<div class="line">&nbsp;</div>
+		<%= submit_tag 'Start Upload', :disable_with => 'Uploading...', :class => 'button' %>
+	</form>
+</div>

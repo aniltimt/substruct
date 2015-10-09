@@ -1,0 +1,56 @@
+<div id="left">
+
+  <%= render :partial => 'subnav_list' %>
+  
+  <% if params[:date] %>
+    <p>
+      <%=
+        link_to(
+          'View all Payments',
+          :action => 'list_payments'
+        )
+      %>
+    </p>
+  <% end %>
+  
+  <%= will_paginate @payments %>
+  
+  <% if @payments.size == 0 %>
+    <p>
+      No affiliate payments to show.
+    </p>
+  <% else %>
+    <%= render :partial => 'payments_table', :locals => {:show_name => true} %>
+    <br/>
+    <%= 
+      link_to(
+        "Download Payments: CSV", 
+				{ 
+				  :controller => 'affiliates',
+					:action => 'list_payments',
+					:date => @date,
+ 					:format => 'csv' 
+ 				}, 
+				:class => 'action' 
+			)
+		%>
+  <% end %>
+  
+  <!-- PAGINATION -->
+	<%= will_paginate @payments %>
+</div>
+
+<div id="right">
+  <h4>View Payments for Date</h4>
+
+  <% form_tag(:action => 'list_payments') do %>
+    <p>
+      <%= select_date(Date.today, {}, {}) %>
+    </p>
+    <p>
+      <%= submit_tag("View Payments for Date", :disable_with => 'Getting payment list...') %>
+    </p>
+  <% end %>
+</div>
+
+<div class="clear"></div>

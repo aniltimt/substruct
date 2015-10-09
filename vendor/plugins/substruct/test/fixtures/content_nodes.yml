@@ -1,0 +1,90 @@
+silent_birth: 
+  user: admin
+  name: silent_birth
+  created_on: <%= 1.month.ago.to_s(:db) %>
+  title: Silent birth
+  type: Blog
+  display_on: <%= 1.month.ago.to_s(:db) %>
+  content: |
+    <p>According to the creator of scientology: Stemming from his belief that birth is a trauma that may induce engrams, he stated that the delivery room should be as silent as possible and that words should be avoided because any words used during birth might be reassociated by adults with their earlier traumatic birth experience.</p>
+    <p><!--more--></p>
+    <p>This line is extended content and should appear after the "jump" on the blog section</p>
+  sections: junk_food_news, pseudoscientific_claims
+
+pigasus_awards:
+  user: admin
+  name: pigasus_awards
+  created_on: <%= 1.year.ago.to_s(:db) %>
+  title: JREF Annual Pigasus Awards
+  type: Blog
+  display_on: <%= 1.year.ago.to_s(:db) %>
+  content: "For who don't know about it: On April 1st of each year, James Randi Educational Foundation award the coveted Pigasus awards in variable categories, for accomplishments in the previous year. The awards are announced via telepathy, winners are allowed to predict their victories, and the Flying Pig trophies are sent via psychokinesis. We send; if they don't receive, that's probably due to their lack of paranormal talent."
+  sections: junk_food_news, pseudoscientific_claims
+
+tinkerbel_pregnant:
+  user: admin
+  name: tinkerbel_pregnant
+  created_on: <%= 1.year.ago.to_s(:db) %>
+  title: Tinkerbel Pregnant
+  type: Blog
+  display_on: <%= 1.year.ago.to_s(:db) %>
+  content: "We was informed that Tinkerbel, a very known celebrity (a Chihuahua owned by another not so known person), is pregnant. Yesterday she made an ultrasonography to know if is she or he. Ohh, Tinkerbel, congratulations."
+
+order_receipt:
+  user: admin
+  name: OrderReceipt
+  created_on: <%= 1.year.ago.to_s(:db) %>
+  title: Thank you for your order!
+  type: Snippet
+  display_on: <%= 1.year.ago.to_s(:db) %>
+  content: <p>You will be billed via credit card.</p>
+
+affiliate_terms: 
+  user: admin
+  name: AffiliateTermsAndConditions
+  created_on: 2006-02-16 21:56:50 -08:00
+  title: Affiliate Terms and Conditions
+  type: Snippet
+  display_on: 2006-02-16 00:00:00 -08:00
+  content: |
+    <p>
+    Customize this with your Affiliate Terms & Conditions
+    if you plan to run an Affiliate program.
+    </p>
+    <p>
+      </b>TERMS</b>
+    </p>
+    <ul>
+      <li>Affiliates will be paid on the first of every month.</li>
+      <li>Payment will be made on all completed orders 90 days after order completion at a rate of 5% total order cost.</li>
+    </ul>
+
+home: 
+  user: admin
+  name: home
+  created_on: <%= 1.year.ago.to_s(:db) %>
+  title: Home
+  type: Page
+  display_on: <%= 1.year.ago.to_s(:db) %>
+  content: |
+    <div id="fullContent">    
+      <h1>Welcome to Substruct</h1>
+    
+      <div class="padLeft">
+        If you can see this, you've probably set things up correctly.
+    
+        <b>Substruct is a...</b>
+    
+        <ul>
+          <li>Content Management System, including Blog capabilities</li>
+          <li>E-commerce Engine that...</li>
+          <ul>
+            <li>Processes credit cards through Authorize.net and PayPal</li>
+            <li>Allows for inventory management</li>
+            <li>Has hooks to tie into fulfillment houses</li>
+          </ul>
+        </ul>
+      </div>
+        
+      <a href="http://dev.subimage.com/projects/substruct/wiki/Customizing">Click here to learn more about customizing Substruct</a>.
+    </div>

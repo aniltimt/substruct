@@ -1,0 +1,38 @@
+<div id="left">
+	
+	<h2><%= @title %></h2>
+	<%= form_tag :action => 'login' %>
+		<div class="form_block">
+			<input type="hidden" name="modal" value="<%= params[:modal] %>" />
+			<p>
+				<%= make_label('Your e-mail address', true) %>
+				<input type="text" class="textInput" size="30" name="email_address" value="<%= params[:email_address] %>" />
+			</p>
+			<script language="javascript">
+				$('email_address').focus();
+			</script>
+
+			<p>
+				<%= make_label('Affiliate Code', true) %>
+				<input type="text" class="textInput" name="code" size="30" />
+			</p>
+		
+		  <div class="line">&nbsp;</div>
+
+	    <p>
+	      <%= submit_tag "Login", :class => 'button twohundred', :disable_with => 'Logging in...' %>
+	      <div class="clear">&nbsp;</div>
+	    </p>
+		
+		</div>
+	</form>
+</div>
+
+<div id="right">
+	<h2>Directions</h2>
+	<p>
+		We need you to login before you can continue.
+	</p>
+</div>
+
+<div class="clear"></div>

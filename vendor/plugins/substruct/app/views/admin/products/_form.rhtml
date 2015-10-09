@@ -1,0 +1,234 @@
+<%= error_messages_for 'product' %>
+
+
+<!-- 
+	PRODUCT AND VARIATIONS ######################################################
+-->
+<div class="padLeft">
+	<h2>Standard Product</h2>
+	<div class="padLeft">
+		<div class="float" style="padding-left:15px;">
+			<%= make_label('Name', true) %>
+			<%= text_field 'product', 'name', :class => 'textInput', :size => 30  %>
+		</div>
+		<div class="float">
+			<%= make_label('Product Code') %>
+			<%= text_field 'product', 'code', :class => 'textInput', :size => 30 %>
+		</div>
+		<div class="float">
+			<%= make_label('Price') %>
+			<%= text_field 'product', 'price', :class => 'textInput numeric', :size => 6, :original_value => @product.price  %>
+		</div>
+		<div class="float">
+			<%= make_label('Quantity') %>
+			<%= text_field 'product', 'quantity', :class => 'textInput numeric', :size => 6, :disabled => @product.variations.size > 0  %>
+		</div>
+		<div class="clear"></div>
+
+	</div>
+
+	<!-- PRODUCT VARIATIONS -->
+
+	<h2>Variations</h2>
+
+	<div class="padLeft">
+  	<p class="info">
+  		Variations will use price set for standard product unless otherwise specified.
+  		<br/>
+  		Drag and drop variations to order them.
+  	</p>
+  	
+		<div id="variation_container" class="sortable">
+			<!-- filled with variations -->
+			<%= render :partial => 'variation', :collection => @product.variations %>
+		</div>
+	
+		<p>
+			<%= 
+				link_to_remote 'Add product variation',
+		    	{
+						:url => { :action => "add_variation_ajax" },
+						:loading => "PRODUCT.add_variation_loading();",
+		    		:complete => "PRODUCT.add_variation_complete();",
+					},
+					:class => 'action',
+					:id => 'add_variation_link'
+			%>
+			<%= image_tag("/indicator.gif", :plugin => 'substruct', :style => 'display:none;', :id => "add_variation_indicator") %>
+		</p>
+		<br/>
+	</div>
+
+</div>
+
+<!-- 
+	DETAILS #####################################################################
+-->
+
+<h1>Details</h1>
+
+<div class="padLeft">
+	<div>
+	  <div class="floatHalf">
+  		<p>
+  			<label>
+  				<%= check_box('product', 'is_discontinued', :class => 'inline') %> 
+  				Product is discontinued
+  			</label>
+  			<span class="info">
+  				Discontinued products will continue to show on the site until there are no more in stock.
+  			</span>
+  		</p>
+	
+  		<p>
+  			<%= make_label('Date available') %>
+  			<%= date_select 'product', 'date_available', {:order => [:month, :day, :year]}   %>
+  		</p>
+		</div>
+    <div class="floatHalf">
+  		<div class="float">
+  			<p>
+  				<%= make_label('Width') %>
+  				<%= text_field 'product', 'size_width', :size => '10', :class => 'textInput'  %>
+  				<br/>
+  				<span class="info">(inches)</span>
+  			</p>
+  			<p>
+  				<%= make_label('Depth') %>
+  				<%= text_field 'product', 'size_depth', :size => '10', :class => 'textInput'  %>
+  				<br/>
+  				<span class="info">(inches)</span>
+  			</p>
+  		</div>
+
+  		<div class="float">
+  			<p>
+  				<%= make_label('Height') %>
+  				<%= text_field 'product', 'size_height', :size => '10', :class => 'textInput'  %>
+  				<br/>
+  				<span class="info">(inches)</span>
+  			</p>
+  			<p>
+  				<%= make_label('Weight') %>
+  				<%= text_field 'product', 'weight', :size => '10', :class => 'textInput'  %>
+  				<br/>
+  				<span class="info">(pounds)</span>
+  			</p>
+  		</div>
+  		<div class="clear">&nbsp;</div>
+	  </div>
+	  <div class="clear"></div>
+	</div>
+</div>
+
+<div class="padLeft">
+	<%= text_area 'product', 'description', :rows => 10, :class => 'textArea', :style => 'width:670px;'  %>
+</div>
+
+<%= render :partial => 'image_upload' %>
+
+<br/>
+<div class="line">&nbsp;</div>
+
+<%= render :partial => 'product_upload' %>
+
+<br/>
+<div class="line">&nbsp;</div>
+
+<script type="text/javascript">
+<!--
+  var PRODUCT = {
+    variation_boxes: null,
+    original_price: 0,
+    set_variation_boxes: function() {
+      PRODUCT.variation_boxes = $$("input[name='variation[][price]']");
+    },
+    // Watches product price box.
+    // When value of price changes, it changes price of all variations 
+    // that equal the original value.
+    change_price: function() {
+      var p_input = $('product_price')
+      var price = p_input.value;
+      PRODUCT.variation_boxes.each(function(box){
+        box_price = box.value;
+        box_orig = parseFloat(box.getAttribute('original_value'), 10);
+        if (box_orig == parseFloat(PRODUCT.original_price,10) || box_orig == 0.0) {
+          box.value = price;
+        };
+      });
+      PRODUCT.color_variation_boxes;
+    },
+    // Marks variation boxes with same price as original,
+    // and ones that differ.
+    color_variation_boxes: function() {
+      var p_input = $('product_price')
+      var price = parseFloat(p_input.value,10);
+      PRODUCT.variation_boxes.each(function(box){
+        box_price = parseFloat(box.value, 10);
+        if (price == box_price) {
+          box.style.color = '#999999';
+          box.style.backgroundColor = '#eee';
+        } else {
+          box.style.color = '';
+          box.style.backgroundColor = '';
+        }
+      });
+    },
+    // Shortcut
+    set_and_color_boxes: function() {
+      PRODUCT.set_variation_boxes();
+      PRODUCT.change_price();
+      PRODUCT.color_variation_boxes();
+      PRODUCT.observe_boxes();
+    },
+    // Observes variations and recolors them if they differ from the norm.
+    // Kind of inefficient scripting wise, but we probably aren't
+    // dealing with products that have 100's of variations.
+    observe_boxes: function() {
+      PRODUCT.variation_boxes.each(function(box){
+        Event.observe(box, 'keyup', PRODUCT.color_variation_boxes);
+      });
+    },
+    add_variation_loading: function() {
+      $('add_variation_link').hide(); 
+      $('add_variation_indicator').show();
+    },
+    add_variation_complete: function() {
+      PRODUCT.set_and_color_boxes();
+      PRODUCT.make_variations_sortable();
+      $('add_variation_link').show(); 
+      $('add_variation_indicator').hide();
+    },
+    // Creates sortable on the variations container so we can drag/drop them
+    make_variations_sortable: function() {
+      Sortable.create(
+        'variation_container',
+        {
+          tag: 'div',
+          onUpdate: PRODUCT.update_variation_rank
+        }
+      );
+    },
+    // Run when variation is dragged / dropped.
+    // Updates the hidden input for rank on the variation,
+    // which is saved on product save.
+    update_variation_rank: function(container) {
+      var sort_items = container.select("div.variation.sort_item");
+      for (var i=0; i<sort_items.length; i++) {
+        variation = sort_items[i];
+        rank_box = variation.select("input[name='variation[][variation_rank]']")[0];
+        rank_box.value = i;
+      }
+    },
+    // Adds event handlers to variation boxes
+    init: function() {
+      PRODUCT.original_price = $('product_price').getAttribute('original_value');
+      Event.observe($('product_price'), 'keyup', PRODUCT.change_price);
+      PRODUCT.set_and_color_boxes();
+      PRODUCT.observe_boxes();
+      PRODUCT.make_variations_sortable();
+    }
+  };
+  PRODUCT.init();
+//-->
+</script>

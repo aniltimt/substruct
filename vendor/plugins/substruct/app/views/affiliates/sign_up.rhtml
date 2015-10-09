@@ -1,0 +1,40 @@
+<div id="left">
+	
+	<h2><%= @title %></h2>
+	
+	<h3 style="margin-top:20px;">Terms and Conditions</h3>
+	<div class="padLeft" style="margin-bottom:20px;">
+  	<%= 
+  	  render_component(
+  	    :controller => "content_nodes",
+  	    :action => "show_snippet",
+        :params => {
+          :name => 'AffiliateTermsAndConditions'
+        }
+      ) 
+    %>
+  </div>
+	
+	<h3>Your Information</h3>
+	<%= form_tag :action => 'sign_up' %>
+		<div class="form_block">
+		  <%= render :partial => 'form' %>
+		  
+		  <div class="line">&nbsp;</div>
+
+	    <p>
+	      <%= submit_tag "Apply to become an Affiliate", :class => 'button twohundred', :disable_with => 'Sending your application...' %>
+	      <div class="clear">&nbsp;</div>
+	    </p>
+		
+		</div>
+	</form>
+</div>
+
+<div id="right">
+  <p>
+    Your application will be processed and reviewed by our staff within a reasonable amount of time.
+  </p>
+</div>
+
+<div class="clear"></div>

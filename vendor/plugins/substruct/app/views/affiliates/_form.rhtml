@@ -1,0 +1,54 @@
+
+<div class="floatHalf">
+	<%= make_label('Email Address', true) %>
+	<%= text_field "affiliate", 'email_address', :size => 30, :class => 'textInput' %>
+	<%= error_message_on("affiliate", :email_address) %>
+</div>
+<div class="floatHalf">
+	<%= make_label('Company Name') %>
+	<%= text_field "affiliate", 'company', :size => 30, :class => 'textInput' %>
+	<%= error_message_on("affiliate", :company) %>
+</div>
+<div class="clear">&nbsp;</div>
+
+<div class="floatHalf">
+	<label>First Name</label>
+	<%= text_field "affiliate", 'first_name', :maxlength => 50, :size => 30, :class => 'textInput' %>
+	<%= error_message_on("affiliate", :first_name) %>
+</div>
+<div class="floatHalf">
+  <label>Last Name</label>
+  <%= text_field "affiliate", 'last_name', :maxlength => 50, :size => 30, :class => 'textInput' %>
+  <%= error_message_on("affiliate", :last_name) %>
+</div>
+<div class="clear">&nbsp;</div>
+
+<div class="floatHalf">
+	<label>Address</label>
+	<%= text_field "affiliate", 'address', :maxlength => 255, :size => 30, :class => 'textInput' %>
+	<%= error_message_on("affiliate", :address) %>
+</div>
+<div class="floatHalf">
+	<label>City</label>
+	<%= text_field "affiliate", 'city', :maxlength => 50, :size => 30, :class => 'textInput' %>
+	<%= error_message_on("affiliate", :city) %>
+</div>
+<div class="clear">&nbsp;</div>
+
+<div class="floatHalf">
+	<div class="float">
+		<label>State/Prov</label>
+		<%= text_field "affiliate", 'state', :maxlength => 10, :size => 10, :class => 'textInput' %>
+		<%= error_message_on("affiliate", :state) %>
+	</div>
+	<div class="float">
+	  <label>Zip Code</label>
+	  <%= text_field "affiliate", 'zip', :maxlength => 10, :size => 10, :class => 'textInput' %>
+	  <%= error_message_on("affiliate", :zip) %>
+	</div>
+</div>
+<div class="clear">&nbsp;</div>
+
+<label>Phone</label>
+<%= text_field "affiliate", 'telephone', :maxlength => 20, :class => 'textInput' %>
+<%= error_message_on("affiliate", :telephone) %>

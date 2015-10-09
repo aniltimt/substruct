@@ -1,0 +1,65 @@
+/* for file upload area */
+.user_upload {
+	width: 90px;
+	overflow: hidden;
+	float: left;
+	text-align: center;
+	margin-right: 5px;
+	margin-bottom: 10px;
+	border: 1px solid #ccc;
+	padding: 5px;
+}
+
+.user_upload.select {
+  cursor: pointer;
+  cursor: hand;
+}
+
+.user_upload .image {
+	height: 80px;
+}
+.user_upload .delete_icon {
+	position: absolute;
+	z-index: 20;
+	margin-left: -10px;
+	margin-top: -10px;
+}
+.user_upload .name {
+  white-space: nowrap;
+}
+#upload_container {
+	margin-bottom:25px;
+}
+
+/* For image library screen where we select files to insert into content */
+
+#file_select_container {
+  width:540px;
+  margin:0px auto;
+}
+
+#insert_details_inner {
+  background-color: #F0F0EE;
+  border: 2px solid #ccc;
+  border-left: 0px;
+  border-right: 0px;
+  padding-top: 10px;
+}
+
+#insert_details_image_container {
+  float:left;
+}
+
+#insert_details_image_container span {
+  position: relative;
+  display: table-cell;
+  vertical-align:middle;
+  width: 345px;
+  height: 228px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  text-align: center;
+}
+#insert_details_image_container span img {
+  vertical-align: middle;
+}

@@ -1,0 +1,27 @@
+<ul class="navigation primary">
+  <% ContentNode::TYPES.each do |type| %>
+    <li class="<%= active_li_css(@viewing_by, type) %>">
+			<%= 
+				link_to_unless(
+				  (@viewing_by == type),
+					type.pluralize,
+					:controller => 'admin/content_nodes',
+					:action => 'list',
+					:key => type
+				)
+			%>
+		</li>
+	<% end %>
+	<li style="color:#eee;padding:0px 10px;margin:0px;font-size:27px;font-weight:bold;">/</li>
+	<li class="<%= active_li_css(@cname, 'files') %>">
+		<%= 
+			link_to_unless(
+			  (@cname == 'files'),
+				'Uploaded Files',
+				:controller => 'files',
+				:action => 'index'
+			)
+		%>
+	</li>
+</ul>
+<div class="clear"></div>

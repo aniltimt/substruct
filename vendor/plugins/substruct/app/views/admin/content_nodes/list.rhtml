@@ -1,0 +1,81 @@
+<div id="left">
+	<% if @aname != 'list' && @aname != 'index' %>
+	  <h1><%= @title %></h1>
+		<ul class="navigation secondary">
+	    <li><a href="/admin/content_nodes/list_sections/">Back to Content Section List</a></li>
+	  </ul>
+	<% else %>
+    <%= render :partial => 'subnav' %>
+	  <ul class="navigation secondary">
+	    <li>
+  			<%=
+  				link_to_unless(
+  				  (params[:sort].nil? || params[:sort] == 'date'),
+  					'Sort Newest to Oldest',
+  					:action => 'index',
+  					:key => params[:key],
+  					:sort => 'date'
+  				)
+  			%>
+  		</li>
+      <li>
+  			<%=
+  				link_to_unless(
+  				  (params[:sort] == 'name'),
+  					'Sort A-Z',
+  					:action => 'index',
+  					:key => params[:key],
+  					:sort => 'name'
+  				)
+  			%>
+  		</li>
+    </ul>
+	<% end %>
+
+	<%= will_paginate @content_nodes %>
+	<br/>
+
+  <table class="list" cellspacing="0" cellpadding="0">
+    <colgroup>
+      <col />
+      <col style="width:150px;"/>
+      <col style="width:90px;"/>
+			<col style="width:110px;"/>
+    </colgroup>
+    <tr>
+      <th>Title</th>
+      <th>Sections</th>
+      <th>Publish On</th>
+			<th>Created By</th>
+    </tr>
+
+  <% if @content_nodes.length > 0 then %>
+    <% for content_node in @content_nodes %>
+    <tr class="<%= alternate %>">
+      <td>
+        <%= link_to content_node.title, {:action => 'edit', :id => content_node} %>
+        <br/>
+        <br/>
+        <span class="info"><a href="/<%= content_node.name %>" class="normal">Show on the site</a></span>
+      </td>
+      <td>
+        <%= content_node.sections.collect{|s| s.name}.join(', ') %>
+      </td>
+      <td><%= content_node.display_on.strftime("%m/%d/%y") %></td>
+			<td><%= content_node.created_by %></td>
+    </tr>
+    <% end %>
+  <% else %>
+    <tr>
+      <td colspan="5">No content to display in this view</td>
+    </tr>
+  <% end %>
+  </table>
+
+  <!-- PAGINATION -->
+	<br/>
+	<%= will_paginate @content_nodes %>
+</div>
+
+
+<%= render(:partial => 'content_right_side') %>

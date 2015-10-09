@@ -1,0 +1,64 @@
+<div id="left">
+  <h1><%= @title %></h1>
+  <% if @payments.size == 0 %>
+    <p>
+      There are no affiliates who have outstanding payments due at this time.
+    </p>
+  <% else %>
+    <table class="list" cellpadding="0" cellspacing="0">
+      <colgroup>
+        <col style="" />
+        <col style="width:100px;" />
+        <col style="" />
+      </colgroup>
+      <tr>
+        <th>Affiliate</th>
+        <th class="numeric">Orders</th>
+        <th class="numeric">Amount</th>
+      </tr>
+      <% @payments.each do |p| %>
+        <tr class="<%= alternate() %>">
+          <td><%= p.affiliate.name %></td>
+          <td class="numeric"><%= p.orders.size %></td>
+          <td class="numeric"><%= number_to_currency(p.amount) %></td>
+        </tr>
+      <% end %>
+    </table>
+    <br/>
+    <% form_tag(:action => 'make_payments') do %>
+      <p>
+        <%= make_label('Notes') %>
+        <span class="info">Will be applied to all payments, <b>visible to affiliates</b>.</span>
+        <%= 
+          text_area_tag(
+            'notes', nil,
+            :cols => 100, :rows => 3, 
+            :style => 'width:660px;',
+            :class => 'textArea'
+          )
+        %>
+      </p>
+    
+      <%= 
+        submit_tag(
+          "Create Affiliate Payments", 
+          :class => 'button hundred', 
+          :id => 'add_note_button',
+          :disable_with => "Creating Payments..."
+        ) 
+      %>
+    <% end %>
+  <% end %>
+</div>
+
+<div id="right">
+  <h1>Help</h1>
+  <p>
+    A payment record will be made for each affiliate listed on this page.
+  </p>
+  <p>
+    Pressing the <i>Create Affiliate Payments</i> button will save all payments.
+  </p>
+</div>
+
+<div class="clear"></div>

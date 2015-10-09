@@ -1,0 +1,18 @@
+<div id="left">
+  <h2><%= @title %></h2>
+  <% form_tag(:action => 'account', :id => @affiliate) do %>
+    <div class="padLeft">
+      <%= render :partial => 'form' %>
+    </div>
+
+    <div class="clear">&nbsp;</div>
+    <div class="line"></div>
+    <p>
+			<%= submit_tag "Save Account Details", :class => 'button' %>
+		</p>
+    
+  <% end %> <!-- / form -->
+</div>
+
+<%= render :partial => 'sidebar' %>
+<div class="clear"></div>

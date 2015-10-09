@@ -1,0 +1,29 @@
+<table class="list" cellpadding="0" cellspacing="0">
+	<colgroup>
+		<col/>
+		<col style="width:70px;"/>
+		<col style="width:190px;"/>
+		<col style="width:100px;"/>
+		<col style="width:100px;"/>
+	</colgroup>
+	<tr>
+		<th>Order Name / Number</th>
+		<th>Date</th>
+		<th>Status</th>
+		<th class="numeric">Total</th>
+		<th class="numeric">Affil. Earnings</th>
+	</tr>
+	<% @orders.each do |order| %>
+		<tr class="<%= alternate %> <%= order.is_payable_to_affiliate? ? '' : 'inactive' %>"
+			<td>
+				<%= link_to(h(order.name), :controller => 'orders', :action => 'show', :id => order) %>
+				<br/>
+				<%= link_to(order.order_number, :controller => 'orders', :action => 'show', :id => order) %>
+			</td>
+			<td><%= order.created_on.strftime("%m/%d/%y %I:%M %p") %></td>
+			<td><%= order.status %></td>
+			<td class="numeric"><%= number_to_currency(order.total) %></td>
+			<td class="numeric"><%= number_to_currency(order.affiliate_earnings) %></td>
+		</tr>
+	<% end %>
+</table>

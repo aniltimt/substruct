@@ -1,0 +1,21 @@
+<ul class="navigation primary">
+	<li class="<%= active_li_css(@cname, 'users') %>">
+		<%= 
+			link_to_unless_current(
+				'Admin Users',
+				:controller => 'users',
+				:action => 'index'
+			)
+		%>
+	</li>
+	<li class="<%= active_li_css(@cname, 'customers') %>">
+		<%= 
+			link_to_unless_current(
+				'Customers',
+				:controller => 'customers',
+				:action => 'index'
+			)
+		%>
+	</li>
+</ul>
+<div class="clear"></div>

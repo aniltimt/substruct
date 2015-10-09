@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+	<title><%=
+		if @title then
+			h @title
+		else
+			h controller.controller_name
+		end
+		-%> : Substruct ADMIN</title>
+	<% # Have to load javascripts in this order for TinyMCE to work properly :/ %>
+	<%= javascript_include_tag 'prototype' %>
+	<%= javascript_include_tag 'tiny_mce/tiny_mce', :plugin => 'substruct' %>
+	<%= javascript_include_tag 'effects', 'dragdrop', 'controls' %>
+	<%= javascript_include_tag 'lightbox', :plugin => 'substruct' %>
+  <%= 
+    javascript_include_tag(
+      'mce_init', 'substruct', 'subModal', 
+      :plugin => 'substruct'
+    )
+  %>
+	<%= 
+	  stylesheet_link_tag(
+	    'admin', 'subModal', 'lightbox', 
+	    :plugin => 'substruct'
+	  )
+	%>
+	<%= yield :header %>
+</head>
+<body>
+
+<% if flash[:notice] -%>
+	<div class="" id="flash" style="display:none;">
+		<p>
+			<%= flash[:notice] %>
+		</p>
+		<p>
+		<a href="#" class="action" onmousedown="new Effect.BlindUp($('flash'))">Close</a>
+		</p>
+	</div>
+	<script type="text/javascript">
+		 new Effect.BlindDown($("flash"));
+	</script>
+<% end -%>
+
+<div id="container">
+
+	<div id="logo">
+		&nbsp;
+		<div id="version_number">v<%= Substruct::Version::STRING %></div>
+	</div>
+
+	<div id="navigation">
+		<ul class="navigation">
+			<li class="<%= @cname == 'orders' ? 'active' : '' %>">
+				<a href="/admin/orders">Orders</a>
+			</li>
+			<li class="<%= @cname == 'products' ? 'active' : '' %>">
+				<%= link_to_section "Products", :controller=>"/admin/products" rescue nil %>
+			</li>
+			<li class="<%= ['content_nodes', 'files'].include?(@cname) ? 'active' : '' %>">
+				<%= link_to_section "Content", :controller=>"/admin/content_nodes" rescue nil %>
+			</li>
+			<li class="<%= (@cname == 'affiliates') ? 'active' : '' %>">
+				<%= link_to_section "Affiliates", :controller=>"/admin/affiliates" rescue nil %>
+			</li>
+			<li class="<%= (@cname == 'promotions') ? 'active' : '' %>">
+				<%= link_to_section "Promos", :controller=>"/admin/promotions" rescue nil %>
+			</li>
+			<li class="<%= @cname == 'questions' ? 'active' : '' %>">
+				<%= link_to_section "FAQ", :controller=>"/admin/questions" rescue nil %>
+			</li>
+
+		  <li class="<%= (@cname == 'users' || @cname == 'customers') ? 'active' : '' %>">
+				<%= link_to_section "Users", :controller=>"/admin/users" rescue nil %>
+			</li>
+			
+			<li class="<%= (['preferences', 'tags', 'sections', 'roles'].include?(@cname)) ? 'active' : '' %>">
+				<%= link_to_section "Preferences", :controller=>"/admin/preferences" rescue nil %>
+			</li>
+		</ul>
+	</div>
+
+	<div id="header">
+		<div id="global_nav"> 
+			<div style="margin-bottom:10px;">
+			  <span style="text-transform:capitalize;"><%= current_user_notice rescue nil %></span>
+			  <br/>
+			  <span class="user_id"><%=h @logged_in_user.login %> - <%=h request.env["SERVER_NAME"] %></span>
+			</div>
+			<a href="/">Public site</a> -
+			<a href="http://code.google.com/p/substruct/wiki/HelpOverview" class="submodal-800-600">Online Help</a> -
+			<a href="http://dev.subimage.com/projects/substruct/">About Substruct</a>
+		</div>
+	</div>
+
+	<!-- content body -->
+	<div id="contentBody">
+
+		<%= yield %>
+
+	<!-- end content body -->
+	</div>
+
+<!-- end container -->
+</div>
+
+</body>
+</html>

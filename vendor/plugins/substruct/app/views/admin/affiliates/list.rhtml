@@ -1,0 +1,79 @@
+<div id="left">
+  <%= render :partial => 'subnav_list' %>
+  
+	<% if @affiliates.length == 0 then %>
+		<h4>No affiliates have been created.</h4>
+	<% else %>
+
+		<table class="list" cellpadding="0" cellspacing="0">
+			<colgroup>
+				<col/>
+				<col/>
+				<col />
+			</colgroup>
+			<tr>
+				<th>Code</th>
+				<th>Name</th>
+				<th>Affiliate Since</th>
+				<th>Earned This Month</th>
+				<th>Owed</th>
+			</tr>
+			<% for affil in @affiliates %>
+				<tr class="<%= alternate %> <%= affil.is_enabled? ? '' : 'inactive' %>">
+					<td>
+            <%= link_to(affil.code, :action => 'edit', :id => affil) %>
+            <% if !affil.is_enabled? %>
+						  <br/>
+						  <span class="info">DISABLED</span>
+						<% end %>
+          </td>
+					<td>
+						<%= affil.name %>
+					</td>
+					<td>
+					  <%= affil.created_at.strftime("%m/%d/%Y") %>
+					</td>
+  			  <td>
+  			    <%= 
+  			      link_to(
+  			        number_to_currency(affil.total_earnings_this_month),
+  			        :action => 'orders',
+  			        :id => affil.id
+  			      )
+  			    %>
+  			    <br/>
+  			    <%=
+  			      link_to(
+  			        'View all earnings',
+  			        {
+  			          :action => 'earnings',
+  			          :id => affil.id
+  			        },
+  			        :class => 'info'
+  			      )
+  			    %>
+  			  </td>
+					<td>
+					  <% if affil.is_enabled? %>
+  					  <%= 
+  					    link_to(
+  					      number_to_currency(affil.total_owed),
+  					      :action => 'payments_for_affiliate',
+  					      :id => affil.id
+  					    )
+  					  %>
+  					<% else %>
+  					  N/A
+					  <% end %>
+					</td>
+				</tr>
+			<% end %>
+		</table>
+
+
+	<% end %>
+</div>
+
+
+<%= render(:partial => 'right_side') %>
+
